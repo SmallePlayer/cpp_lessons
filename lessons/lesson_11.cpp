@@ -1,20 +1,20 @@
-﻿// =============================================================================
-//  11: бработка ошибок и сключения
+// =============================================================================
+// Урок 11: Обработка ошибок и Исключения
 // =============================================================================
 // Темы:
-//   - ачем нужна обработка ошибок
+//   - Зачем нужна обработка ошибок
 //   - try / catch / throw
 //   - Стандартные исключения (std::exception)
 //   - Создание собственных исключений
 //   - noexcept (C++11)
 //   - RAII — ресурсы и исключения
-//   - оды ошибок vs исключения
+//   - Коды ошибок vs исключения
 //   - std::optional (C++17)
-//   - учшие практики
+//   - Лучшие практики
 //
-// налогия с Python:
+// Аналогия с Python:
 //   Python: try / except / raise / finally
-//   C++:    try / catch  / throw  (finally нет! спользуйте RAII)
+//   C++:    try / catch  / throw  (finally нет! Используйте RAII)
 //
 //   Python: raise ValueError("сообщение")
 //   C++:    throw std::invalid_argument("сообщение");
@@ -28,18 +28,18 @@
 #include <string>
 #include <vector>
 #include <optional>
-#include <cmath>     // std::optional (C++17)
+#include <cmath>
 #include <fstream>      // файловые потоки
 #include <memory>
 
 // ─────────────────────────────────────────────────────────────────────────────
-// ТЯ: сключения в C++
+// ТЕМА: Исключения в C++
 // ─────────────────────────────────────────────────────────────────────────────
 //
-// сключение — это механизм обработки ошибок, который:
-// 1. ЯТ нормальный код и код обработки ошибок
-// 2. Т ошибку вверх по стеку вызовов
-// 3.  Т быть проигнорирован (в отличие от кодов ошибок)
+// Исключение — это механизм обработки ошибок, который:
+// 1. РАЗДЕЛЯЕТ нормальный код и код обработки ошибок
+// 2. ПЕРЕДАЁТ ошибку вверх по стеку вызовов
+// 3. НЕ МОЖЕТ быть проигнорирован (в отличие от кодов ошибок)
 //
 // throw — бросает исключение (как raise в Python)
 // try   — блок, в котором может возникнуть исключение
@@ -59,12 +59,12 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 // =====================================================================
-// ункция с исключением
+// Функция с исключением
 // =====================================================================
 
 double safe_divide(double a, double b) {
     if (b == 0.0) {
-        throw std::invalid_argument("еление на ноль!");
+        throw std::invalid_argument("Деление на ноль!");
     }
     return a / b;
 }
@@ -72,7 +72,7 @@ double safe_divide(double a, double b) {
 int safe_element(const std::vector<int>& vec, int index) {
     if (index < 0 || index >= static_cast<int>(vec.size())) {
         throw std::out_of_range(
-            "ндекс " + std::to_string(index) +
+            "Индекс " + std::to_string(index) +
             " вне диапазона [0, " + std::to_string(vec.size() - 1) + "]"
         );
     }
@@ -90,7 +90,7 @@ private:
 
 public:
     InsufficientFundsError(double req, double avail)
-        : std::runtime_error("едостаточно средств: запрошено " +
+        : std::runtime_error("Недостаточно средств: запрошено " +
                              std::to_string(req) + ", доступно " +
                              std::to_string(avail)),
           requested(req), available(avail) {}
@@ -101,7 +101,7 @@ public:
 };
 
 // =====================================================================
-// ласс с исключениями
+// Класс с исключениями
 // =====================================================================
 
 class SafeAccount {
@@ -113,7 +113,7 @@ public:
     SafeAccount(const std::string& o, double initial)
         : owner(o), balance(initial) {
         if (initial < 0) {
-            throw std::invalid_argument("ачальный баланс не может быть отрицательным!");
+            throw std::invalid_argument("Начальный баланс не может быть отрицательным!");
         }
     }
 
@@ -144,7 +144,7 @@ public:
 
 std::optional<double> safe_sqrt(double x) {
     if (x < 0.0) {
-        return std::nullopt;  // "ет значения"
+        return std::nullopt;  // "Нет значения"
     }
     return std::sqrt(x);
 }
@@ -163,7 +163,7 @@ std::optional<int> find_in_vector(const std::vector<int>& vec, int target) {
 // =====================================================================
 
 int safe_add(int a, int b) noexcept {
-    return a + b;  // арантированно не бросает исключений
+    return a + b;  // Гарантированно не бросает исключений
 }
 
 // =====================================================================
@@ -172,11 +172,11 @@ int safe_add(int a, int b) noexcept {
 
 int main() {
     std::cout << "========================================" << std::endl;
-    std::cout << "   11: бработка ошибок" << std::endl;
+    std::cout << "   Урок 11: Обработка ошибок" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
     // =====================================================================
-    // 1. Ы try / catch
+    // 1. БАЗОВЫЙ try / catch
     // =====================================================================
     std::cout << "--- 1. try / catch ---" << std::endl;
 
@@ -184,77 +184,77 @@ int main() {
         double result = safe_divide(10.0, 3.0);
         std::cout << "10 / 3 = " << result << std::endl;
 
-        result = safe_divide(10.0, 0.0);  // росит исключение!
-        std::cout << "та строка  выполнится!" << std::endl;
+        result = safe_divide(10.0, 0.0);  // Бросит исключение!
+        std::cout << "Эта строка НЕ выполнится!" << std::endl;
     }
     catch (const std::invalid_argument& e) {
-        std::cout << "шибка: " << e.what() << std::endl;
+        std::cout << "Ошибка: " << e.what() << std::endl;
     }
-    std::cout << "рограмма продолжает работать после catch!" << std::endl;
+    std::cout << "Программа продолжает работать после catch!" << std::endl;
     std::cout << std::endl;
 
     // =====================================================================
-    // 2. СЬ CATCH-
+    // 2. НЕСКОЛЬКО CATCH-БЛОКОВ
     // =====================================================================
-    std::cout << "--- 2. есколько catch ---" << std::endl;
+    std::cout << "--- 2. Несколько catch ---" << std::endl;
 
     std::vector<int> numbers{10, 20, 30, 40, 50};
 
-    // опробуем разные ошибки:
+    // Попробуем разные ошибки:
     for (int idx : {2, 10, -1}) {
         try {
             int val = safe_element(numbers, idx);
             std::cout << "numbers[" << idx << "] = " << val << std::endl;
         }
         catch (const std::out_of_range& e) {
-            std::cout << "шибка: " << e.what() << std::endl;
+            std::cout << "Ошибка: " << e.what() << std::endl;
         }
         catch (const std::exception& e) {
-            std::cout << "бщая ошибка: " << e.what() << std::endl;
+            std::cout << "Общая ошибка: " << e.what() << std::endl;
         }
         catch (...) {
-            // catch (...) — ловит С исключения (включая не-std)
-            std::cout << "еизвестная ошибка!" << std::endl;
+            // catch (...) — ловит ВСЕ исключения (включая не-std)
+            std::cout << "Неизвестная ошибка!" << std::endl;
         }
     }
     std::cout << std::endl;
 
     // =====================================================================
-    // 3. ССТЫ СЯ
+    // 3. ПОЛЬЗОВАТЕЛЬСКИЕ ИСКЛЮЧЕНИЯ
     // =====================================================================
-    std::cout << "--- 3. ользовательские исключения ---" << std::endl;
+    std::cout << "--- 3. Пользовательские исключения ---" << std::endl;
 
     try {
-        SafeAccount acc{"лексей", 1000.0};
-        std::cout << "аланс: " << acc.get_balance() << std::endl;
+        SafeAccount acc{"Алексей", 1000.0};
+        std::cout << "Баланс: " << acc.get_balance() << std::endl;
 
         acc.deposit(500.0);
-        std::cout << "осле депозита 500: " << acc.get_balance() << std::endl;
+        std::cout << "После депозита 500: " << acc.get_balance() << std::endl;
 
-        acc.withdraw(2000.0);  // росит InsufficientFundsError!
+        acc.withdraw(2000.0);  // Бросит InsufficientFundsError!
     }
     catch (const InsufficientFundsError& e) {
-        std::cout << "шибка: " << e.what() << std::endl;
-        std::cout << "  е хватает: " << e.get_deficit() << std::endl;
+        std::cout << "Ошибка: " << e.what() << std::endl;
+        std::cout << "  Не хватает: " << e.get_deficit() << std::endl;
     }
     catch (const std::invalid_argument& e) {
-        std::cout << "еверный аргумент: " << e.what() << std::endl;
+        std::cout << "Неверный аргумент: " << e.what() << std::endl;
     }
     std::cout << std::endl;
 
     // =====================================================================
-    // 4. RAII — есурсы и исключения
+    // 4. RAII — Ресурсы и исключения
     // =====================================================================
     // RAII (Resource Acquisition Is Initialization):
-    // есурс захватывается в конструкторе, освобождается в деструкторе.
+    // Ресурс захватывается в конструкторе, освобождается в деструкторе.
     //
     // Python: with open("file") as f:  (context manager)
     // C++:    { std::ifstream file("name"); }  // RAII — файл закроется сам!
     //
     // RAII заменяет finally из Python!
-    //  C++ Т finally, потому что RAII делает его ненужным.
+    // В C++ НЕТ finally, потому что RAII делает его ненужным.
     //
-    // римеры RAII:
+    // Примеры RAII:
     //   std::string     — автоматически освобождает строку
     //   std::vector     — автоматически освобождает массив
     //   std::unique_ptr — автоматически вызывает delete
@@ -266,30 +266,30 @@ int main() {
     try {
         auto ptr = std::make_unique<int>(42);
         std::cout << "unique_ptr создан: " << *ptr << std::endl;
-        // аже если здесь будет исключение,
+        // Даже если здесь будет исключение,
         // unique_ptr освободит память автоматически!
         // throw std::runtime_error("тест");
     }
     catch (const std::exception& e) {
-        std::cout << "шибка: " << e.what() << std::endl;
+        std::cout << "Ошибка: " << e.what() << std::endl;
     }
     // ptr уничтожен, память освобождена — даже при исключении!
     std::cout << std::endl;
 
     // =====================================================================
-    // 5. std::optional (C++17) — ЬТТ СЯ
+    // 5. std::optional (C++17) — РЕЗУЛЬТАТ БЕЗ ИСКЛЮЧЕНИЙ
     // =====================================================================
     // std::optional<T> — может содержать значение T или "ничего" (nullopt).
     //
     // Python: Optional[float] (typing) или возврат None
     // C++:    std::optional<double>
     //
-    // спользуйте optional когда:
-    // - "ет значения" — это ЬЯ ситуация,  ошибка
-    // - е хотите бросать исключение
+    // Используйте optional когда:
+    // - "Нет значения" — это НОРМАЛЬНАЯ ситуация, НЕ ошибка
+    // - Не хотите бросать исключение
     //
-    // спользуйте исключения когда:
-    // - роизошла СТЯЩЯ ошибка, которую нельзя игнорировать
+    // Используйте исключения когда:
+    // - Произошла НАСТОЯЩАЯ ошибка, которую нельзя игнорировать
 
     std::cout << "--- 5. std::optional ---" << std::endl;
 
@@ -300,7 +300,7 @@ int main() {
     if (result1.has_value()) {
         std::cout << "sqrt(16) = " << result1.value() << std::endl;
     }
-    // ли короче с value_or:
+    // Или короче с value_or:
     std::cout << "sqrt(16) = " << result1.value_or(0.0) << std::endl;
 
     if (result2.has_value()) {
@@ -324,36 +324,36 @@ int main() {
     std::cout << std::endl;
 
     // =====================================================================
-    // 6. Ш Т
+    // 6. ЛУЧШИЕ ПРАКТИКИ
     // =====================================================================
-    std::cout << "--- 6. учшие практики ---" << std::endl;
+    std::cout << "--- 6. Лучшие практики ---" << std::endl;
 
-    std::cout << "1. росайте по значению, ловите по const ссылке" << std::endl;
+    std::cout << "1. Бросайте по значению, ловите по const ссылке" << std::endl;
     std::cout << "   throw MyError(...); catch (const MyError& e)" << std::endl;
-    std::cout << "2. спользуйте RAII для управления ресурсами" << std::endl;
-    std::cout << "3. е используйте исключения для нормального потока" << std::endl;
-    std::cout << "4. аследуйте от std::exception или его потомков" << std::endl;
-    std::cout << "5. спользуйте noexcept для функций, которые не бросают" << std::endl;
-    std::cout << "6. спользуйте optional для 'может не быть значения'" << std::endl;
-    std::cout << "7. еструкторы  не должны бросать исключения!" << std::endl;
+    std::cout << "2. Используйте RAII для управления ресурсами" << std::endl;
+    std::cout << "3. Не используйте исключения для нормального потока" << std::endl;
+    std::cout << "4. Наследуйте от std::exception или его потомков" << std::endl;
+    std::cout << "5. Используйте noexcept для функций, которые не бросают" << std::endl;
+    std::cout << "6. Используйте optional для 'может не быть значения'" << std::endl;
+    std::cout << "7. Деструкторы НЕ должны бросать исключения!" << std::endl;
     std::cout << std::endl;
 
-    // емонстрация noexcept:
+    // Демонстрация noexcept:
     std::cout << "noexcept: safe_add(3, 4) = " << safe_add(3, 4) << std::endl;
     std::cout << "safe_add is noexcept: " << std::boolalpha
               << noexcept(safe_add(1, 2)) << std::endl;
     std::cout << std::endl;
 
     std::cout << "========================================" << std::endl;
-    std::cout << "  рок 11 завершён!" << std::endl;
+    std::cout << "  Урок 11 завершён!" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
-    std::cout << "Я Я Т:" << std::endl;
+    std::cout << "ДОМАШНЕЕ ЗАДАНИЕ:" << std::endl;
     std::cout << "1. Создайте класс SafeArray с проверкой границ" << std::endl;
-    std::cout << "2. еализуйте парсер чисел с обработкой ошибок" << std::endl;
-    std::cout << "3. апишите функцию чтения файла с исключениями" << std::endl;
+    std::cout << "2. Реализуйте парсер чисел с обработкой ошибок" << std::endl;
+    std::cout << "3. Напишите функцию чтения файла с исключениями" << std::endl;
     std::cout << "4. Создайте иерархию исключений для калькулятора" << std::endl;
-    std::cout << "5. ерепишите SafeAccount с использованием optional" << std::endl;
+    std::cout << "5. Перепишите SafeAccount с использованием optional" << std::endl;
 
     return 0;
 }
