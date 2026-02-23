@@ -1,0 +1,17 @@
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_01.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_02.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_03.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_04.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_05.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_06.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_07.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_08.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_09.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_10.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_11.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_12.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_14_boost_intro.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_15_boost_asio.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/lesson_16_boost_regex_json.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/edit_cache.dir
+/home/runner/work/cpp_lessons/cpp_lessons/build_test/CMakeFiles/rebuild_cache.dir
