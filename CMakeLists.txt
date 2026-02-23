@@ -11,3 +11,5 @@ foreach(i RANGE 1 12)
   endif()
   add_executable(lesson_${num} lessons/lesson_${num}.cpp)
 endforeach()
+
+add_executable(lesson_14_boost_intro lessons/lesson_14_boost_intro.cpp)
