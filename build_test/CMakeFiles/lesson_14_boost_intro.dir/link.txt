@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/lesson_14_boost_intro.dir/link.d CMakeFiles/lesson_14_boost_intro.dir/lessons/lesson_14_boost_intro.cpp.o -o lesson_14_boost_intro

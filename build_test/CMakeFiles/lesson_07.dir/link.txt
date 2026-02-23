@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/lesson_07.dir/link.d CMakeFiles/lesson_07.dir/lessons/lesson_07.cpp.o -o lesson_07

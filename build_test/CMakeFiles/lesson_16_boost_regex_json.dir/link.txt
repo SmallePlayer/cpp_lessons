@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/lesson_16_boost_regex_json.dir/link.d CMakeFiles/lesson_16_boost_regex_json.dir/lessons/lesson_16_boost_regex_json.cpp.o -o lesson_16_boost_regex_json
