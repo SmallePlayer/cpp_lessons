@@ -13,3 +13,5 @@ foreach(i RANGE 1 12)
 endforeach()
 
 add_executable(lesson_14_boost_intro lessons/lesson_14_boost_intro.cpp)
+add_executable(lesson_15_boost_asio lessons/lesson_15_boost_asio.cpp)
+add_executable(lesson_16_boost_regex_json lessons/lesson_16_boost_regex_json.cpp)
