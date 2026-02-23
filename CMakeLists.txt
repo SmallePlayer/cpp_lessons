@@ -1,0 +1,13 @@
+﻿cmake_minimum_required(VERSION 3.10)
+project(hello_cpp LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+foreach(i RANGE 1 12)
+  if(i LESS 10)
+    set(num "0${i}")
+  else()
+    set(num "${i}")
+  endif()
+  add_executable(lesson_${num} lessons/lesson_${num}.cpp)
+endforeach()
