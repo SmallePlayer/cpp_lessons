@@ -1,17 +1,17 @@
 ﻿// =============================================================================
-//  7: ассивы, екторы и онтейнеры STL
+//  7: Массивы, Векторы и Контейнеры STL
 // =============================================================================
 // Темы:
 //   - C-массивы (статические)
 //   - std::array (C++11) — безопасная обёртка
 //   - std::vector — динамический массив (аналог Python list)
-//   - сновные методы vector
+//   - Основные методы vector
 //   - std::map и std::unordered_map (аналог Python dict)
 //   - std::set и std::unordered_set (аналог Python set)
-//   - тераторы — основы
-//   - лгоритмы STL (sort, find, count, etc.)
+//   - Итераторы — основы
+//   - Алгоритмы STL (sort, find, count, etc.)
 //
-// налогия с Python:
+// Аналогия с Python:
 //   Python: list         →  C++: std::vector
 //   Python: dict         →  C++: std::map / std::unordered_map
 //   Python: set          →  C++: std::set / std::unordered_set
@@ -31,7 +31,7 @@
 
 int main() {
     std::cout << "========================================" << std::endl;
-    std::cout << "   7: онтейнеры STL" << std::endl;
+    std::cout << "   7: Контейнеры STL" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
     // =====================================================================
@@ -39,24 +39,24 @@ int main() {
     // =====================================================================
     // int arr[5] = {1, 2, 3, 4, 5};
     //
-    // роблемы C-массивов:
-    // - иксированный размер (нельзя изменить)
-    // - ет проверки границ (выход за массив = UB!)
-    // - е знают свой размер при передаче в функцию
-    // - ет методов (length, push_back, etc.)
+    // Проблемы C-массивов:
+    // - Фиксированный размер (нельзя изменить)
+    // - Нет проверки границ (выход за массив = UB!)
+    // - Не знают свой размер при передаче в функцию
+    // - Нет методов (length, push_back, etc.)
     //
-    // :  используйте C-массивы! спользуйте std::array или std::vector!
+    // : не используйте C-массивы! Используйте std::array или std::vector!
 
     std::cout << "--- 1. C-массивы (не рекомендуется) ---" << std::endl;
 
     int c_arr[5] = {10, 20, 30, 40, 50};
     std::cout << "c_arr[0] = " << c_arr[0] << std::endl;
     std::cout << "c_arr[4] = " << c_arr[4] << std::endl;
-    // c_arr[10] = 999;  // UB! омпилятор  предупредит!
+    // c_arr[10] = 999;  // UB! Компилятор не предупредит!
 
-    // азмер C-массива:
+    // Размер C-массива:
     std::cout << "sizeof(c_arr) = " << sizeof(c_arr) << " байт" << std::endl;
-    std::cout << "оличество элементов: " << (sizeof(c_arr) / sizeof(c_arr[0])) << std::endl;
+    std::cout << "Количество элементов: " << (sizeof(c_arr) / sizeof(c_arr[0])) << std::endl;
     std::cout << std::endl;
 
     // =====================================================================
@@ -64,11 +64,11 @@ int main() {
     // =====================================================================
     // std::array<тип, размер> name = {значения};
     //
-    // реимущества перед C-массивом:
-    // - нает свой размер: arr.size()
-    // - роверка границ: arr.at(i) бросает исключение
-    // - аботает с алгоритмами STL
-    // - ожно копировать и сравнивать
+    // Преимущества перед C-массивом:
+    // - Знает свой размер: arr.size()
+    // - Проверка границ: arr.at(i) бросает исключение
+    // - Работает с алгоритмами STL
+    // - Можно копировать и сравнивать
     //
     // Python: tuple (неизменяемая последовательность)
 
@@ -82,7 +82,7 @@ int main() {
     std::cout << "arr.back() = " << arr.back() << std::endl;
 
     // Range-based for:
-    std::cout << "лементы: ";
+    std::cout << "Элементы: ";
     for (const auto& elem : arr) {
         std::cout << elem << " ";
     }
@@ -92,10 +92,10 @@ int main() {
     // =====================================================================
     // 3. std::vector — С СС
     // =====================================================================
-    // std::vector — Ы контейнер в C++!
+    // std::vector — главный контейнер в C++!
     // то аналог Python list, но типизированный.
     //
-    // ожет расти и уменьшаться.
+    // Может расти и уменьшаться.
     // Хранит элементы в непрерывной памяти (как массив).
     //
     // Python: my_list = [1, 2, 3]        →  C++: std::vector<int> vec = {1, 2, 3};
@@ -113,7 +113,7 @@ int main() {
     std::vector<int> v3(5, 0);               // 5 нулей: {0, 0, 0, 0, 0}
     std::vector<std::string> words{"hello", "world", "cpp"};
 
-    // обавление элементов:
+    // Добавление элементов:
     v1.push_back(10);
     v1.push_back(20);
     v1.push_back(30);
@@ -122,31 +122,31 @@ int main() {
     for (const auto& elem : v1) std::cout << elem << " ";
     std::cout << std::endl;
 
-    // азмер и ёмкость:
+    // Размер и ёмкость:
     std::cout << "v2.size() = " << v2.size() << std::endl;
     std::cout << "v2.capacity() = " << v2.capacity() << " (выделенная память)" << std::endl;
     std::cout << "v2.empty() = " << std::boolalpha << v2.empty() << std::endl;
 
-    // оступ:
+    // Доступ:
     std::cout << "v2[0] = " << v2[0] << std::endl;
     std::cout << "v2.at(2) = " << v2.at(2) << std::endl;
     std::cout << "v2.front() = " << v2.front() << std::endl;
     std::cout << "v2.back() = " << v2.back() << std::endl;
 
-    // даление:
-    v2.pop_back();  // даляет последний элемент
-    std::cout << "осле pop_back: ";
+    // Удаление:
+    v2.pop_back();  // Удаляет последний элемент
+    std::cout << "После pop_back: ";
     for (const auto& elem : v2) std::cout << elem << " ";
     std::cout << std::endl;
 
-    // ставка в середину:
+    // Вставка в середину:
     v2.insert(v2.begin() + 1, 99);
-    std::cout << "осле insert(1, 99): ";
+    std::cout << "После insert(1, 99): ";
     for (const auto& elem : v2) std::cout << elem << " ";
     std::cout << std::endl;
 
-    // чистка:
-    // v2.clear();  // даляет все элементы
+    // Очистка:
+    // v2.clear();  // Удаляет все элементы
     std::cout << std::endl;
 
     // =====================================================================
@@ -161,11 +161,11 @@ int main() {
     // Python: min(list), max(list)  →  C++: *std::min_element(...), *std::max_element(...)
     // Python: sum(list)             →  C++: std::accumulate(v.begin(), v.end(), 0)
 
-    std::cout << "--- 4. лгоритмы STL ---" << std::endl;
+    std::cout << "--- 4. Алгоритмы STL ---" << std::endl;
 
     std::vector<int> nums{5, 2, 8, 1, 9, 3, 7, 4, 6};
 
-    std::cout << "сходный: ";
+    std::cout << "Исходный: ";
     for (const auto& n : nums) std::cout << n << " ";
     std::cout << std::endl;
 
@@ -175,29 +175,29 @@ int main() {
     for (const auto& n : nums) std::cout << n << " ";
     std::cout << std::endl;
 
-    // братная сортировка:
+    // Обратная сортировка:
     std::sort(nums.begin(), nums.end(), std::greater<int>());
     std::cout << "sort(>):  ";
     for (const auto& n : nums) std::cout << n << " ";
     std::cout << std::endl;
 
-    // еверс:
+    // Реверс:
     std::reverse(nums.begin(), nums.end());
     std::cout << "reverse():";
     for (const auto& n : nums) std::cout << n << " ";
     std::cout << std::endl;
 
-    // оиск:
+    // Поиск:
     auto it = std::find(nums.begin(), nums.end(), 5);
     if (it != nums.end()) {
         std::cout << "find(5): найдено на позиции " << (it - nums.begin()) << std::endl;
     }
 
-    // одсчёт:
+    // Подсчёт:
     std::vector<int> data{1, 2, 3, 2, 1, 2, 3, 2};
     std::cout << "count(2) в {1,2,3,2,1,2,3,2} = " << std::count(data.begin(), data.end(), 2) << std::endl;
 
-    // ин/акс:
+    // Мин/Макс:
     auto min_it = std::min_element(nums.begin(), nums.end());
     auto max_it = std::max_element(nums.begin(), nums.end());
     std::cout << "min = " << *min_it << ", max = " << *max_it << std::endl;
@@ -211,10 +211,10 @@ int main() {
     // 5. std::map — ССТЫ СС (СЬ)
     // =====================================================================
     // std::map<ключ, значение> — упорядоченный (по ключу) словарь
-    // еализован как красно-чёрное дерево.
-    // оступ/вставка/удаление: O(log n)
+    // Реализован как красно-чёрное дерево.
+    // Доступ/вставка/удаление: O(log n)
     //
-    // std::unordered_map — упорядоченный (хеш-таблица)
+    // std::unordered_map — неупорядоченный (хеш-таблица)
     // оступ/вставка/удаление: O(1) в среднем
     //
     // Python: dict (аналог unordered_map)
@@ -225,28 +225,28 @@ int main() {
     std::cout << "--- 5. std::map ---" << std::endl;
 
     std::map<std::string, int> ages;
-    ages["лексей"] = 25;
-    ages["ария"] = 30;
-    ages["ван"] = 22;
-    ages.insert({"лена", 28});
+    ages["Алексей"] = 25;
+    ages["Мария"] = 30;
+    ages["Иван"] = 22;
+    ages.insert({"Елена", 28});
 
-    // еребор (упорядочен по ключу!):
+    // Перебор (упорядочен по ключу!):
     for (const auto& [name, age] : ages) {  // Structured bindings (C++17)
         std::cout << "  " << name << ": " << age << " лет" << std::endl;
     }
 
-    // оиск:
-    if (ages.count("лексей") > 0) {
-        std::cout << "лексей найден, возраст: " << ages["лексей"] << std::endl;
+    // Поиск:
+    if (ages.count("Алексей") > 0) {
+        std::cout << "Алексей найден, возраст: " << ages["Алексей"] << std::endl;
     }
 
     // find() — более безопасный способ:
-    auto search = ages.find("ария");
+    auto search = ages.find("Мария");
     if (search != ages.end()) {
-        std::cout << "ария найдена: " << search->second << " лет" << std::endl;
+        std::cout << "Мария найдена: " << search->second << " лет" << std::endl;
     }
 
-    std::cout << "азмер map: " << ages.size() << std::endl;
+    std::cout << "Размер map: " << ages.size() << std::endl;
     std::cout << std::endl;
 
     // =====================================================================
@@ -262,7 +262,7 @@ int main() {
     for (const auto& [item, price] : prices) {
         std::cout << "  " << item << ": " << price << " руб" << std::endl;
     }
-    std::cout << "(порядок может быть Ы — это хеш-таблица!)" << std::endl;
+    std::cout << "(порядок может быть любым — это хеш-таблица!)" << std::endl;
     std::cout << std::endl;
 
     // =====================================================================
@@ -277,7 +277,7 @@ int main() {
 
     std::cout << "--- 7. std::set ---" << std::endl;
 
-    std::set<int> unique_nums{5, 3, 1, 4, 1, 5, 3};  // убликаты удалятся!
+    std::set<int> unique_nums{5, 3, 1, 4, 1, 5, 3};  // Дубликаты удалятся!
     std::cout << "set{5,3,1,4,1,5,3}: ";
     for (const auto& n : unique_nums) {
         std::cout << n << " ";  // 1 3 4 5 (отсортировано, без дубликатов!)
@@ -285,8 +285,8 @@ int main() {
     std::cout << std::endl;
 
     unique_nums.insert(2);
-    unique_nums.insert(1);  // убликат — не добавится
-    std::cout << "осле insert(2, 1): ";
+    unique_nums.insert(1);  // Дубликат — не добавится
+    std::cout << "После insert(2, 1): ";
     for (const auto& n : unique_nums) std::cout << n << " ";
     std::cout << std::endl;
 
@@ -306,15 +306,15 @@ int main() {
 
     std::cout << "--- 8. pair и tuple ---" << std::endl;
 
-    std::pair<std::string, int> person{"лексей", 25};
+    std::pair<std::string, int> person{"Алексей", 25};
     std::cout << "pair: " << person.first << ", " << person.second << std::endl;
 
     // Structured bindings (C++17):
     auto [name2, age2] = person;
-    std::cout << "еструктуризация: name=" << name2 << ", age=" << age2 << std::endl;
+    std::cout << "Деструктуризация: name=" << name2 << ", age=" << age2 << std::endl;
 
     // tuple:
-    std::tuple<std::string, int, double> record{"ария", 30, 4.5};
+    std::tuple<std::string, int, double> record{"Мария", 30, 4.5};
     auto [r_name, r_age, r_gpa] = record;
     std::cout << "tuple: " << r_name << ", " << r_age << ", GPA: " << r_gpa << std::endl;
     std::cout << std::endl;
@@ -333,7 +333,7 @@ int main() {
         {7, 8, 9}
     };
 
-    std::cout << "атрица 3x3:" << std::endl;
+    std::cout << "Матрица 3x3:" << std::endl;
     for (const auto& row : matrix) {
         for (const auto& elem : row) {
             std::cout << elem << " ";
@@ -343,14 +343,14 @@ int main() {
     std::cout << std::endl;
 
     std::cout << "========================================" << std::endl;
-    std::cout << "  рок 7 завершён!" << std::endl;
+    std::cout << "  Урок 7 завершён!" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
     std::cout << "Я Я Т:" << std::endl;
-    std::cout << "1. еализуйте подсчёт слов в тексте (map)" << std::endl;
-    std::cout << "2. далите дубликаты из вектора с помощью set" << std::endl;
-    std::cout << "3. тсортируйте вектор строк по длине (лямбда)" << std::endl;
-    std::cout << "4. еализуйте транспонирование матрицы" << std::endl;
+    std::cout << "1. Реализуйте подсчёт слов в тексте (map)" << std::endl;
+    std::cout << "2. Удалите дубликаты из вектора с помощью set" << std::endl;
+    std::cout << "3. Отсортируйте вектор строк по длине (лямбда)" << std::endl;
+    std::cout << "4. Реализуйте транспонирование матрицы" << std::endl;
     std::cout << "5. Создайте телефонную книгу на map" << std::endl;
 
     return 0;
