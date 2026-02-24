@@ -11,9 +11,9 @@
 //   - if constexpr (C++17)
 //   - constexpr функции
 //   - Range-based for с инициализатором
-//   - бзор важных фич современного C++
+//   - Обзор важных фич современного C++
 //
-// налогия с Python:
+// Аналогия с Python:
 //   Python: def max_val(a, b): return a if a > b else b  (работает для любого типа)
 //   C++:    template<typename T> T max_val(T a, T b) { return (a > b) ? a : b; }
 //   Python: утиная типизация (duck typing)
@@ -34,10 +34,10 @@
 // ─────────────────────────────────────────────────────────────────────────────
 //
 // Шаблоны — это "обобщённое программирование" (generic programming).
-// ы пишете код  раз, и он работает с Ы типами!
+// Вы пишете код один раз, и он работает с любыми типами!
 //
-// омпилятор Т конкретный код для каждого используемого типа.
-// то называется "инстанцирование шаблона" (template instantiation).
+// Компилятор генерирует конкретный код для каждого используемого типа.
+// Это называется "инстанцирование шаблона" (template instantiation).
 //
 // template<typename T>   — T будет заменён на конкретный тип
 // template<class T>      — то же самое (typename == class здесь)
@@ -45,9 +45,9 @@
 // Python: не нужны — утиная типизация ("если крякает как утка...")
 // C++:    нужны шаблоны для обобщённого кода!
 //
-// менно шаблоны лежат в основе STL:
+// Именно шаблоны лежат в основе STL:
 //   std::vector<int>, std::vector<string>, std::map<string, int>
-//   то всё СТЯ шаблонов!
+//   Это всё результат шаблонов!
 // ─────────────────────────────────────────────────────────────────────────────
 
 // =====================================================================
@@ -85,7 +85,7 @@ void print_vector(const std::vector<T>& vec, const std::string& label = "") {
 // Шаблон суммы элементов:
 template<typename T>
 T sum_vector(const std::vector<T>& vec) {
-    T result{};  // нициализация нулём для числовых типов
+    T result{};  // Инициализация нулём для числовых типов
     for (const auto& elem : vec) {
         result += elem;
     }
@@ -93,7 +93,7 @@ T sum_vector(const std::vector<T>& vec) {
 }
 
 // =====================================================================
-// 2. Ш СС
+// 2. Шаблон класса Stack
 // =====================================================================
 
 template<typename T>
@@ -106,7 +106,7 @@ public:
         data.push_back(value);
     }
 
-    void push(T&& value) {  // еремещение!
+    void push(T&& value) {  // Перемещение!
         data.push_back(std::move(value));
     }
 
@@ -140,7 +140,7 @@ public:
 };
 
 // =====================================================================
-// 3. Ш С СЬ Т
+// 3. Шаблон с несколькими параметрами
 // =====================================================================
 
 template<typename K, typename V>
@@ -162,7 +162,7 @@ public:
 };
 
 // =====================================================================
-// 4. constexpr — ЫСЯ  Т Я
+// 4. constexpr — вычисления во время компиляции
 // =====================================================================
 
 constexpr int constexpr_factorial(int n) {
@@ -178,17 +178,17 @@ constexpr double constexpr_power(double base, int exp) {
 }
 
 // =====================================================================
-// 5. if constexpr (C++17) — ЯЫ if
+// 5. if constexpr (C++17) — компилируемый if
 // =====================================================================
 
 template<typename T>
 std::string type_description(T value) {
     if constexpr (std::is_integral_v<T>) {
-        return "елое число: " + std::to_string(value);
+        return "Целое число: " + std::to_string(value);
     } else if constexpr (std::is_floating_point_v<T>) {
-        return "робное число: " + std::to_string(value);
+        return "Дробное число: " + std::to_string(value);
     } else {
-        return "ругой тип";
+        return "Другой тип";
     }
 }
 
@@ -210,19 +210,19 @@ int main() {
     // --- 1. Шаблоны функций ---
     std::cout << "--- 1. Шаблоны функций ---" << std::endl;
 
-    // омпилятор сам определяет T по аргументам:
+    // Компилятор сам определяет T по аргументам:
     std::cout << "max_val(3, 7) = " << max_val(3, 7) << std::endl;
     std::cout << "max_val(3.14, 2.71) = " << max_val(3.14, 2.71) << std::endl;
     std::cout << "max_val('a', 'z') = " << max_val('a', 'z') << std::endl;
 
-    // ожно указать тип явно:
+    // Можно указать тип явно:
     std::cout << "max_val<double>(3, 7.5) = " << max_val<double>(3, 7.5) << std::endl;
 
-    // бмен значениями:
+    // Обмен значениями:
     int x{10}, y{20};
-    std::cout << "о: x=" << x << ", y=" << y << std::endl;
+    std::cout << "До: x=" << x << ", y=" << y << std::endl;
     my_swap(x, y);
-    std::cout << "осле my_swap: x=" << x << ", y=" << y << std::endl;
+    std::cout << "После my_swap: x=" << x << ", y=" << y << std::endl;
     std::cout << std::endl;
 
     // --- 2. Шаблон вывода вектора ---
@@ -277,10 +277,10 @@ int main() {
     std::cout << "5! = " << fact5 << " (вычислено при компиляции!)" << std::endl;
     std::cout << "2^8 = " << pow2_8 << " (вычислено при компиляции!)" << std::endl;
 
-    // ассив с constexpr размером:
+    // Массив с constexpr размером:
     constexpr int SIZE = constexpr_factorial(4);  // 24
     std::array<int, SIZE> big_arr{};
-    std::cout << "ассив размером " << SIZE << "! элементов" << std::endl;
+    std::cout << "Массив размером " << SIZE << "! элементов" << std::endl;
     std::cout << std::endl;
 
     // --- 6. if constexpr ---
@@ -319,13 +319,13 @@ int main() {
     std::cout << "array: " << first << ", " << second << ", " << third << std::endl;
 
     // С парой:
-    std::pair<std::string, int> person{"лексей", 25};
+    std::pair<std::string, int> person{"Алексей", 25};
     auto [name, age] = person;
     std::cout << "pair: " << name << ", " << age << std::endl;
 
     //  цикле с map:
     std::vector<std::pair<std::string, int>> scores = {
-        {"лексей", 95}, {"ария", 88}, {"ван", 92}
+        {"Алексей", 95}, {"Мария", 88}, {"Иван", 92}
     };
     for (const auto& [n, s] : scores) {
         std::cout << "  " << n << ": " << s << std::endl;
@@ -338,21 +338,21 @@ int main() {
     std::string original = "Hello, World! This is a long string for demo.";
     std::cout << "original: '" << original << "'" << std::endl;
 
-    std::string moved = std::move(original);  // Щ, не копирование!
+    std::string moved = std::move(original);  // Перемещение, не копирование!
     std::cout << "moved:    '" << moved << "'" << std::endl;
     std::cout << "original после move: '" << original << "' (пустая!)" << std::endl;
-    // : после std::move объект в "valid but unspecified state"
-    // го можно присвоить заново или уничтожить, но  использовать!
+    // Примечание: после std::move объект в "valid but unspecified state"
+    // Его можно присвоить заново или уничтожить, но не использовать!
 
     std::vector<std::string> vec;
     std::string temp = "перемещаемая строка";
-    vec.push_back(std::move(temp));  // еремещение вместо копирования!
+    vec.push_back(std::move(temp));  // Перемещение вместо копирования!
     std::cout << "vec[0]: '" << vec[0] << "'" << std::endl;
     std::cout << "temp после move: '" << temp << "'" << std::endl;
     std::cout << std::endl;
 
     // --- 10. бзор стандартов ---
-    std::cout << "--- 10. бзор стандартов C++ ---" << std::endl;
+    std::cout << "--- 10. Обзор стандартов C++ ---" << std::endl;
     std::cout << "C++11: auto, range-for, лямбды, move, smart ptr, {}" << std::endl;
     std::cout << "C++14: auto return, generic лямбды, make_unique" << std::endl;
     std::cout << "C++17: optional, string_view, structured bindings," << std::endl;
@@ -363,16 +363,16 @@ int main() {
     std::cout << std::endl;
 
     std::cout << "========================================" << std::endl;
-    std::cout << "  рок 12 завершён!" << std::endl;
-    std::cout << "  Я! С  Ы!" << std::endl;
+    std::cout << "  Урок 12 завершён!" << std::endl;
+    std::cout << "  Поздравляю! Курс завершён!" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
     std::cout << "Я Я Т:" << std::endl;
-    std::cout << "1. апишите шаблонную функцию min_element для массива" << std::endl;
+    std::cout << "1. Напишите шаблонную функцию min_element для массива" << std::endl;
     std::cout << "2. Создайте шаблонный класс Matrix<T, Rows, Cols>" << std::endl;
-    std::cout << "3. еализуйте шаблонный связанный список" << std::endl;
-    std::cout << "4. спользуйте constexpr для вычисления числа ибоначчи" << std::endl;
-    std::cout << "5. апишите программу с использованием всех фич из уроков" << std::endl;
+    std::cout << "3. Реализуйте шаблонный связанный список" << std::endl;
+    std::cout << "4. Используйте constexpr для вычисления числа Фибоначчи" << std::endl;
+    std::cout << "5. Напишите программу с использованием всех фич из уроков" << std::endl;
 
     return 0;
 }

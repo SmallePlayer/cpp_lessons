@@ -4,13 +4,13 @@
 // Темы:
 //   - C-строки (const char*) vs std::string
 //   - Создание и инициализация строк
-//   - перации со строками: конкатенация, сравнение, поиск
-//   - етоды std::string (length, substr, find, replace, etc.)
+//   - Операции со строками: конкатенация, сравнение, поиск
+//   - Методы std::string (length, substr, find, replace, etc.)
 //   - std::string_view (C++17) — лёгкий «взгляд» на строку
 //   - std::getline для ввода строк с пробелами
-//   - онвертация строк ↔ числа
+//   - Конвертация строк ↔ числа
 //
-// налогия с Python:
+// Аналогия с Python:
 //   Python: name = "Hello"         →  C++: std::string name = "Hello";
 //   Python: len(name)              →  C++: name.length()  или  name.size()
 //   Python: name + " World"        →  C++: name + " World"
@@ -34,27 +34,27 @@ int main() {
     //  C строки — это массивы символов, заканчивающиеся нулевым символом '\0':
     //   const char* greeting = "Hello";  // → ['H','e','l','l','o','\0']
     //
-    // роблемы C-строк:
-    //   - ет автоматического управления памятью
-    //   - егко выйти за границы массива
-    //   - ельзя легко конкатенировать, сравнивать и т.д.
+    // Проблемы C-строк:
+    //   - Нет автоматического управления памятью
+    //   - Легко выйти за границы массива
+    //   - Нельзя легко конкатенировать, сравнивать и т.д.
     //
     // std::string (C++) — это СС, который:
-    //   - втоматически управляет памятью
-    //   - ожет расти и уменьшаться
-    //   - меет удобные методы
-    //   - езопасен
+    //   - Автоматически управляет памятью
+    //   - Может расти и уменьшаться
+    //   - Имеет удобные методы
+    //   - Безопасен
     //
     // : С используйте std::string, а не C-строки!
 
     std::cout << "--- 1. C-строки vs std::string ---" << std::endl;
 
-    // C-строка ( рекомендуется):
-    const char* c_str = "ривет из C";  // казатель на массив символов
+    // C-строка (не рекомендуется):
+    const char* c_str = "Привет из C";  // казатель на массив символов
     std::cout << "C-строка: " << c_str << std::endl;
 
     // std::string (ТСЯ):
-    std::string cpp_str = "ривет из C++";
+    std::string cpp_str = "Привет из C++";
     std::cout << "std::string: " << cpp_str << std::endl;
     std::cout << std::endl;
 
@@ -65,9 +65,9 @@ int main() {
 
     std::string s1;                        // устая строка ""
     std::string s2{"Hello"};               // Списковая инициализация
-    std::string s3 = "World";              // опирующая инициализация
+    std::string s3 = "World";              // Копирующая инициализация
     std::string s4(5, '*');                 // "*****" (5 звёздочек)
-    std::string s5{s2};                    // опия s2
+    std::string s5{s2};                    // Копия s2
     std::string s6{s2, 1, 3};             // "ell" (от позиции 1, длина 3)
 
     std::cout << "s1 (пустая):    '" << s1 << "'" << std::endl;
@@ -85,16 +85,16 @@ int main() {
     // empty() — проверяет, пуста ли строка
     //
     // оступ к символам:
-    //   str[i]    —  проверки границ (быстро, но опасно!)
-    //   str.at(i) — С проверкой границ (бросает исключение при выходе)
+    //   str[i]    — без проверки границ (быстро, но опасно!)
+    //   str.at(i) — с проверкой границ (бросает исключение при выходе)
     //   str.front() — первый символ
     //   str.back()  — последний символ
     //
     // Python: name[0], name[-1], len(name)
     // C++:    name[0], name.back(), name.length()
-    // :  C++ Т отрицательных индексов! name[-1] — это UB!
+    // : в C++ нет отрицательных индексов! name[-1] — это UB!
 
-    std::cout << "--- 3. лина и доступ ---" << std::endl;
+    std::cout << "--- 3. Длина и доступ ---" << std::endl;
 
     std::string word{"Programming"};
     std::cout << "Строка: '" << word << "'" << std::endl;
@@ -110,35 +110,35 @@ int main() {
     // =====================================================================
     // 4. ТЯ СТ
     // =====================================================================
-    // ператор + соединяет строки (как в Python)
-    // ператор += добавляет к строке
+    // Оператор + соединяет строки (как в Python)
+    // Оператор += добавляет к строке
     // append() — метод для добавления
     //
-    // : ельзя конкатенировать  литерала!
+    // : Нельзя конкатенировать два литерала!
     //   "Hello" + " World"  — Ш! (это C-строки, а не std::string)
     //   std::string("Hello") + " World"  — !
     //   "Hello"s + " World"  — ! (с литералом s, C++14)
 
-    std::cout << "--- 4. онкатенация ---" << std::endl;
+    std::cout << "--- 4. Конкатенация ---" << std::endl;
 
     std::string first{"Hello"};
     std::string second{" World"};
     std::string result = first + second;       // "Hello World"
     std::cout << "first + second = '" << result << "'" << std::endl;
 
-    result += "!!!";                            // обавляем к результату
+    result += "!!!";                            // Добавляем к результату
     std::cout << "result += \"!!!\" → '" << result << "'" << std::endl;
 
-    result.append(" C++");                      // етод append
+    result.append(" C++");                      // Метод append
     std::cout << "result.append(\" C++\") → '" << result << "'" << std::endl;
     std::cout << std::endl;
 
     // =====================================================================
     // 5. С СТ
     // =====================================================================
-    // ператоры ==, !=, <, >, <=, >= — лексикографическое сравнение
-    //  Python: == сравнивает содержимое (так же!)
-    //  C++: == для std::string тоже сравнивает С
+    // Операторы ==, !=, <, >, <=, >= — лексикографическое сравнение
+    //  В Python: == сравнивает содержимое (так же!)
+    //  В C++: == для std::string тоже сравнивает содержимое
     //
     // compare() — возвращает 0 если равны, <0 или >0 если нет
 
@@ -161,12 +161,12 @@ int main() {
     // rfind(что)      — находит последнее вхождение
     // find_first_of() — находит первый из указанных символов
     //
-    // сли не найдено — возвращает std::string::npos
+    // Если не найдено — возвращает std::string::npos
     //
     // Python: str.find("lo") → 3 (или -1 если нет)
     // C++:    str.find("lo") → 3 (или std::string::npos если нет)
 
-    std::cout << "--- 6. оиск в строках ---" << std::endl;
+    std::cout << "--- 6. Поиск в строках ---" << std::endl;
 
     std::string text{"Hello, World! Hello, C++!"};
     std::cout << "Текст: '" << text << "'" << std::endl;
@@ -174,15 +174,15 @@ int main() {
     std::size_t pos = text.find("Hello");
     std::cout << "find(\"Hello\"):  позиция " << pos << std::endl;
 
-    pos = text.find("Hello", 1);  // оиск с позиции 1
+    pos = text.find("Hello", 1);  // Поиск с позиции 1
     std::cout << "find(\"Hello\", 1): позиция " << pos << std::endl;
 
-    pos = text.rfind("Hello");    // оследнее вхождение
+    pos = text.rfind("Hello");    // Последнее вхождение
     std::cout << "rfind(\"Hello\"): позиция " << pos << std::endl;
 
     pos = text.find("Python");
     if (pos == std::string::npos) {
-        std::cout << "\"Python\"  найден (npos)" << std::endl;
+        std::cout << "\"Python\" не найден (npos)" << std::endl;
     }
     std::cout << std::endl;
 
@@ -200,10 +200,10 @@ int main() {
     // :  Python replace заменяет все вхождения!
     //            C++ replace работает по позиции!
 
-    std::cout << "--- 7. одстроки и модификация ---" << std::endl;
+    std::cout << "--- 7. Подстроки и модификация ---" << std::endl;
 
     std::string original{"Hello, World!"};
-    std::cout << "ригинал: '" << original << "'" << std::endl;
+    std::cout << "Оригинал: '" << original << "'" << std::endl;
 
     std::string sub = original.substr(7, 5);  // "World"
     std::cout << "substr(7, 5): '" << sub << "'" << std::endl;
@@ -229,11 +229,11 @@ int main() {
     // Python: for c in text:
     // C++:    for (char c : text) { ... }
 
-    std::cout << "--- 8. еребор символов ---" << std::endl;
+    std::cout << "--- 8. Перебор символов ---" << std::endl;
 
     std::string demo{"C++17"};
 
-    std::cout << "о индексу:     ";
+    std::cout << "По индексу:     ";
     for (std::size_t j = 0; j < demo.size(); ++j) {
         std::cout << demo[j] << ' ';
     }
@@ -245,7 +245,7 @@ int main() {
     }
     std::cout << std::endl;
 
-    // зменение через ссылку:
+    // Изменение через ссылку:
     std::string lower_str{"hello"};
     for (char& c : lower_str) {
         c = static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
@@ -263,13 +263,13 @@ int main() {
     //   std::stof(str)   → float
     //   std::stod(str)   → double
     //
-    // исло → строка:
+    // Число → строка:
     //   std::to_string(число)
     //
     // Python: int("42"), str(42), float("3.14")
     // C++:    std::stoi("42"), std::to_string(42), std::stod("3.14")
 
-    std::cout << "--- 9. онвертация строк и чисел ---" << std::endl;
+    std::cout << "--- 9. Конвертация строк и чисел ---" << std::endl;
 
     // Строка → число:
     std::string num_str{"42"};
@@ -280,7 +280,7 @@ int main() {
     double pi_val = std::stod(pi_str);
     std::cout << "stod(\"3.14159\") = " << pi_val << std::endl;
 
-    // исло → строка:
+    // Число → строка:
     int value{255};
     std::string value_str = std::to_string(value);
     std::cout << "to_string(255) = \"" << value_str << "\"" << std::endl;
@@ -293,7 +293,7 @@ int main() {
     // е выделяет память, не копирует данные.
     // деально для функций, которым нужно только прочитать строку.
     //
-    // : string_view  владеет данными! сли оригинальная
+    // : string_view не владеет данными! Если оригинальная
     // строка будет удалена, string_view станет «висячей» ссылкой!
     //
     // Python аналогия: memoryview для bytes (похожая идея)
@@ -301,7 +301,7 @@ int main() {
     std::cout << "--- 10. std::string_view (C++17) ---" << std::endl;
 
     std::string source{"Hello, wonderful World!"};
-    std::string_view view{source};             // е копирует!
+    std::string_view view{source};             // Не копирует!
 
     std::cout << "source: '" << source << "'" << std::endl;
     std::cout << "view:   '" << view << "'" << std::endl;
@@ -309,7 +309,7 @@ int main() {
     std::cout << "view.substr(7, 9): '" << view.substr(7, 9) << "'" << std::endl;
 
     // string_view тоже можно перебирать:
-    std::cout << "ервые 5 символов: ";
+    std::cout << "Первые 5 символов: ";
     for (std::size_t k = 0; k < 5; ++k) {
         std::cout << view[k];
     }
@@ -317,15 +317,15 @@ int main() {
     std::cout << std::endl;
 
     std::cout << "========================================" << std::endl;
-    std::cout << "  рок 3 завершён!" << std::endl;
+    std::cout << "  Урок 3 завершён!" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
     std::cout << "Я Я Т:" << std::endl;
-    std::cout << "1. апишите программу, которая переворачивает строку" << std::endl;
-    std::cout << "2. одсчитайте количество гласных в строке" << std::endl;
-    std::cout << "3. амените все пробелы на подчёркивания" << std::endl;
-    std::cout << "4. еализуйте проверку палиндрома" << std::endl;
-    std::cout << "5. азделите строку по запятым (аналог split)" << std::endl;
+    std::cout << "1. Напишите программу, которая переворачивает строку" << std::endl;
+    std::cout << "2. Подсчитайте количество гласных в строке" << std::endl;
+    std::cout << "3. Замените все пробелы на подчёркивания" << std::endl;
+    std::cout << "4. Реализуйте проверку палиндрома" << std::endl;
+    std::cout << "5. Разделите строку по запятым (аналог split)" << std::endl;
 
     return 0;
 }
