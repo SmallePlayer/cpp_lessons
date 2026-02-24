@@ -1,1 +1,0 @@
-/home/runner/work/cpp_lessons/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/lesson_06.dir/link.d CMakeFiles/lesson_06.dir/lessons/lesson_06.cpp.o -o lesson_06
